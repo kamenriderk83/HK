@@ -937,6 +937,57 @@
                 aspect-ratio: 16/9;
             }
         }
+
+        /* 免责声明页面样式 */
+        .section.disclaimer-slide {
+            background-color: rgb(167, 209, 188);
+            min-height: auto !important;
+            height: auto !important;
+        }
+
+        .disclaimer-content {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 30px 0;
+        }
+
+        .disclaimer-text {
+            width: 600px;
+            font-size: 13px;
+            line-height: 1.8;
+            color: #000;
+            text-align: justify;
+            margin: 0 auto;
+        }
+
+        /* 移动端适配 */
+        @media screen and (max-width: 768px) {
+            .disclaimer-content {
+                padding: 20px;
+            }
+
+            .disclaimer-text {
+                width: 100%;
+                font-size: 12px;
+                line-height: 1.6;
+                padding: 0 15px;
+            }
+        }
+
+        .fp-watermark {
+            display: none !important;
+        }
+
+        /* 隐藏fullPage.js水印 */
+        #fp-nav + div {
+            display: none !important;
+        }
+
+        .fp-watermark, 
+        .fp-watermark a {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
