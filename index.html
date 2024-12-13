@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站入口</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: "Microsoft YaHei", sans-serif;
+            background: url('img/背景图.webp') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            background-color: rgb(167, 209, 188);
+            padding: 10px 30px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+
+        /* 主要内容区域样式 */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 800px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .notice {
+            margin-bottom: 30px;
+            line-height: 1.8;
+            color: #333;
+            font-size: 14px;
+            text-align: justify;
+            padding: 0 20px;
+        }
+
+        .enter-btn {
+            display: block;
+            width: 120px;
+            margin: 30px auto 10px;
+            padding: 12px 24px;
+            background-color: rgb(167, 209, 188);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        .enter-btn:hover {
+            background-color: rgb(147, 189, 168);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 移动端适配 */
+        @media screen and (max-width: 768px) {
+            .notice {
+                font-size: 13px;
+                line-height: 1.6;
+                padding: 0 10px;
+            }
+            
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <img src="logo/logo.webp" alt="Logo" class="logo">
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <div class="main-content">
+        <div class="container">
+            <div class="notice">
+                免責聲明：
+                <br><br>
+                本網真並不是發展項目之官方站真。本廣告内的圖片與發展商的樓盤並無任何關係。買家如欲了解發展項目詳情，請参閱售說明書。資料有可能出現售價、現金或其他條件上的改動，或撤回而不提前通知，並可能受特別條款約束。
+                <br><br>
+                本宣傳旨在提供更多一手新盤資料及圖片檔案服務只供閱覽；不明或保證所提供訊息的準確性和完整性。在撰寫本廣告時，雖已作出合理和謹慎的考虑，對資料的完整和準確性恕不保證、明示或暗示絕對無誤。因使用此资料而直接或間接引致的損失或損毁，本站恕不負責。
+                <br><br>
+                本站内所有内容包括一手新盤資料，僅供参考和借鑒，一切以發展商最新公布為準。本站面所提到房屋面積如無特別標示，均指實用面積。客户須自行核實資料及内容的完整性和準確性。所載資料僅供参考，並不構成要約或合約一部份。如有需要，客戶應自行咨询相關法律及/或專業意見。
+            </div>
+            <a href="video.html" class="enter-btn">进入</a>
+        </div>
+    </div>
+</body>
+</html> 
