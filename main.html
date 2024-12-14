@@ -23,7 +23,7 @@
             padding: 15px 60px 10px;
             width: 100%;
             display: grid;
-            grid-template-columns: 200px 1fr 180px;
+            grid-template-columns: 200px 1fr auto;
             align-items: flex-end;
             position: fixed;
             top: 0;
@@ -57,13 +57,10 @@
             padding: 5px 15px;
             transition: all 0.3s ease;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
             height: 30px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .nav-link:hover {
@@ -109,9 +106,9 @@
 
         /* 幻灯片样式 */
         .section {
-            min-height: 100vh;
-            width: 100%;
             position: relative;
+            height: 100vh;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -122,10 +119,13 @@
         .background-img {
             position: absolute;
             left: 50%;
+            bottom: 0;
+            width: 1920px;
+            height: 1080px;
             transform: translateX(-50%);
-            width: 100%;
-            height: 100%;
             object-fit: cover;
+            z-index: 1;
+            transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1.000);
         }
 
         .circle-container {
@@ -180,12 +180,6 @@
             position: relative;
             background-color: rgb(255, 252, 214);
             z-index: 1;
-            padding: 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: auto !important;
-            height: auto !important;
         }
 
         .section.second-slide .background-img {
@@ -201,13 +195,15 @@
             opacity: 1;
         }
 
-        .section.second-slide .video-container {
-            position: relative;
+        .video-container {
+            position: absolute;
             z-index: 3;
-            width: 800px;
-            max-width: 1000px;
-            margin: 0 auto;
-            aspect-ratio: 16 / 9;
+            width: 60%;
+            height: 60%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000);
         }
 
         .youtube-video {
@@ -240,20 +236,9 @@
             }
 
             .video-container {
-                width: 100%;
-                height: 56.25vw;  /* 保持16:9的比例 (9/16 = 0.5625) */
-                margin: 0;
-            }
-
-            .youtube-video {
-                border-radius: 0;
-                box-shadow: none;
-            }
-
-            .section.second-slide {
-                padding: 0;
-                min-height: auto !important;
-                height: auto !important;
+                width: 90%;
+                height: 56.25vw;
+                max-height: 40vh;
             }
         }
 
@@ -343,34 +328,23 @@
             top: 50%;
             transform: translate(-50%, -50%);
             filter: drop-shadow(-8px 8px 8px rgba(0, 0, 0, 0.5));
-            max-width: 80%;
-            object-fit: contain;
         }
 
         /* 移动端适配 */
         @media screen and (max-width: 768px) {
             .top-overlay-img {
-                width: 90%;
-                max-width: 500px;
+                width: 500px;
             }
 
             .large-circle {
-                width: 100vw;
-                height: 100vw;
-                max-width: 550px;
-                max-height: 550px;
+                width: 600px;
+                height: 600px;
             }
 
             /* 调整下载按钮位置，避免被大图遮挡 */
             .download-btn {
-                top: 75%;
+                top: 85%;
                 z-index: 6;
-            }
-
-            .section.third-slide {
-                min-height: auto !important;
-                height: 550px !important;
-                padding: 100px 0;
             }
         }
 
@@ -388,8 +362,6 @@
 
         .section.third-slide {
             background-color: rgb(255, 252, 214);
-            margin-top: 50px;
-            padding: 100px 0;
         }
 
         /* 修改WhatsApp按钮样式 */
@@ -470,8 +442,6 @@
             font-size: 14px;
             text-align: center;
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
             transition: all 0.3s ease;
         }
 
@@ -692,7 +662,7 @@
         @media screen and (max-width: 768px) {
             /* 第一张幻灯片的overlay图片位置调整 */
             .overlay-img {
-                top: 65%;  /* 从76%为65% */
+                top: 65%;  /* 从76%改为65% */
             }
 
             /* 第二张幻灯片的视频容器 */
@@ -738,7 +708,8 @@
             gap: 4px;
             padding: 8px 15px;
             border-radius: 4px;
-            background-color: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .status-top {
@@ -750,232 +721,68 @@
         .status-bottom {
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            gap: 4px;
-            margin-right: 28px;  /* 与上面的文字对齐 */
+            gap: 8px;
+            margin-left: 28px;  /* 添加左边距，与WhatsApp图标宽度对应 */
         }
 
         .whatsapp-status-icon {
             width: 20px;
             height: 20px;
-        }
-
-        .status-text-sub {
-            color: #000;
-            text-decoration: none;
-            font-size: 14px;
-            white-space: nowrap;
+            object-fit: contain;
+            flex-shrink: 0;  /* 防止图标被压缩 */
         }
 
         .status-indicator {
             width: 8px;
             height: 8px;
-            background-color: #4CAF50;
+            background-color: #2ecc71;  /* 绿色 */
             border-radius: 50%;
             box-shadow: 0 0 8px rgba(46, 204, 113, 0.5);
             animation: pulse 2s infinite;
+            margin-right: 8px;  /* 保持与文字的间距 */
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 8px rgba(46, 204, 113, 0.5); }
-            50% { box-shadow: 0 0 16px rgba(46, 204, 113, 0.8); }
-            100% { box-shadow: 0 0 8px rgba(46, 204, 113, 0.5); }
+            0% {
+                box-shadow: 0 0 8px rgba(46, 204, 113, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 16px rgba(46, 204, 113, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 8px rgba(46, 204, 113, 0.5);
+            }
         }
 
         .status-text-main {
-            font-size: 12px;
-            color: #4CAF50;
+            color: #000000;
+            font-size: 14px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-text-sub {
+            color: #000000;
+            font-size: 14px;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         /* 修改第四张幻灯片的样式 */
         .section.gallery-slide {
             background-color: rgb(255, 252, 214);
-            padding: 30px 0;
+            padding: 50px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
-            min-height: auto !important;
-            height: auto !important;
-        }
-
-        /* 图片集标题样式 */
-        .gallery-title {
-            font-size: 24px;
-            color: #000;
-            margin-bottom: 20px;
-            font-weight: 500;
-            text-align: center;
-        }
-
-        @media screen and (max-width: 768px) {
-            .gallery-title {
-                font-size: 20px;
-                margin-bottom: 15px;
-            }
-        }
-
-        /* 大图区域样式 */
-        .main-image-container {
-            position: relative;
-            width: 800px;
-            height: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.02);
-            border-radius: 8px;
-            overflow: hidden;
-            user-select: none;
-        }
-
-        .main-image {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            opacity: 0; /* 初始透明度为0 */
-            transition: opacity 0.2s ease; /* 只保留透明度过渡效果 */
-        }
-
-        /* 导航按钮样式 */
-        .main-image-container .gallery-nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 36px;
-            height: 36px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-        }
-
-        .main-image-container .gallery-prev {
-            left: 10px;
-        }
-
-        .main-image-container .gallery-next {
-            right: 10px;
-        }
-
-        /* 移除不需要的滑动相关样式 */
-        .slide-left,
-        .slide-right {
-            display: none;
-        }
-
-        /* 移动端适配保持不变 */
-        @media screen and (max-width: 768px) {
-            .thumbnails-container,
-            .main-image-container {
-                width: 95%;
-            }
-
-            .main-image-container {
-                height: 300px;
-                margin: 0 auto;
-            }
-        }
-
-        /* 免责声明页面样式 */
-        .section.disclaimer-slide {
-            background-color: rgb(167, 209, 188);
-            min-height: auto !important;
-            height: auto !important;
-        }
-
-        .disclaimer-content {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            padding: 30px 0;
-        }
-
-        .disclaimer-text {
-            width: 600px;
-            font-size: 13px;
-            line-height: 1.8;
-            color: #000;
-            text-align: justify;
-            margin: 0 auto;
-        }
-
-        /* 移动端适配 */
-        @media screen and (max-width: 768px) {
-            .disclaimer-content {
-                padding: 20px;
-            }
-
-            .disclaimer-text {
-                width: 100%;
-                font-size: 12px;
-                line-height: 1.6;
-                padding: 0 15px;
-            }
-        }
-
-        /* 调整内容区域，为固定导航栏留出空间 */
-        #fullpage {
-            padding-top: 65px; /* 导航栏高度 */
-        }
-
-        /* 移除 fullPage.js 导航点 */
-        #fp-nav {
-            display: none !important;
-        }
-
-        /* 调整各个部分的样式 */
-        .section:not(:first-child) {
-            margin-top: 0;
-        }
-
-        /* 新页面样式 */
-        .section.new-slide {
-            position: relative;
-            background-color: rgb(255, 252, 214);
-            z-index: 1;
-            padding: 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: auto !important;
-            height: auto !important;
-        }
-
-        .section.new-slide .background-img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .section.new-slide .centered-img {
-            position: relative;
-            z-index: 2;
-            width: 800px;
-            height: auto;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-        }
-
-        /* 移动端适配 */
-        @media screen and (max-width: 768px) {
-            .section.new-slide .centered-img {
-                width: 95%;
-            }
+            gap: 30px;
         }
 
         /* 缩略图区域样式 */
         .thumbnails-container {
-            width: 800px;
+            width: 800px;  /* 固定宽度 */
             position: relative;
             margin: 0 auto;
-            padding: 0 50px;
-            margin-bottom: 30px;
+            padding: 0 50px;  /* 调整内边距，为按钮留出空间 */
         }
 
         .thumbnails-wrapper {
@@ -1030,13 +837,14 @@
         }
 
         .gallery-prev {
-            left: 10px;
+            left: 5px;  /* 调整左按钮位置 */
         }
 
         .gallery-next {
-            right: 10px;
+            right: 5px;  /* 调整右按钮位置 */
         }
 
+        /* 箭头样式 */
         .gallery-nav-btn::before {
             content: '';
             width: 8px;
@@ -1044,6 +852,10 @@
             border-top: 2px solid #666;
             border-right: 2px solid #666;
             transition: border-color 0.3s ease;
+        }
+
+        .gallery-nav-btn:hover::before {
+            border-color: #333;
         }
 
         .gallery-prev::before {
@@ -1056,12 +868,10 @@
             margin-right: 4px;
         }
 
-        /* 移动端按钮样式调整 */
+        /* 移动端适配 */
         @media screen and (max-width: 768px) {
-            .gallery-nav-btn {
-                width: 30px;
-                height: 30px;
-                background-color: rgba(255, 255, 255, 0.95);
+            .thumbnails-container {
+                padding: 0 40px;  /* 移动端调整内边距 */
             }
 
             .gallery-prev {
@@ -1071,179 +881,61 @@
             .gallery-next {
                 right: 5px;
             }
-
-            .gallery-nav-btn::before {
-                width: 6px;
-                height: 6px;
-            }
-        }
-
-        /* 示范单位照片页面样式 */
-        .section.showcase-slide {
-            background-color: rgb(255, 252, 214);
-            padding: 20px 0;
-            min-height: auto !important;
-            height: auto !important;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section.showcase-slide .background-img {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
-
-        .section.showcase-slide .gallery-title,
-        .section.showcase-slide .main-image-container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .showcase-title {
-            font-size: 24px;
-            color: #000;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .showcase-item {
-            width: 100%;
-            aspect-ratio: 16/9;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .showcase-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .showcase-item:hover img {
-            transform: scale(1.05);
-        }
-
-        @media screen and (max-width: 768px) {
-            .showcase-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .showcase-title {
-                font-size: 20px;
-                margin-bottom: 20px;
-            }
         }
 
         /* 大图区域样式 */
         .main-image-container {
-            position: relative;
-            width: 600px;
-            height: 400px;
+            width: 800px;  /* 固定宽度 */
+            height: 450px; /* 固定高度，保持16:9比例 */
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: rgba(0, 0, 0, 0.02);
             border-radius: 8px;
             overflow: hidden;
-            user-select: none;
+            touch-action: pan-x;  /* 允许水平滑动 */
+            user-select: none;  /* 防止图片被选中 */
         }
 
+        .main-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.2s ease-in-out;
+            will-change: transform;
+        }
+
+        /* 滑动方向的类 */
+        .slide-left {
+            transform: translateX(-100%);
+        }
+
+        .slide-right {
+            transform: translateX(100%);
+        }
+
+        /* 移动端适配 */
         @media screen and (max-width: 768px) {
+            .thumbnails-container,
             .main-image-container {
                 width: 95%;
-                height: 300px;
-                margin: 0 auto;
             }
-        }
 
-        /* 图片查看器样式 */
-        .image-viewer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-        }
+            .main-image-container {
+                height: 40vh;
+                margin: 0 auto;  /* 居中显示 */
+            }
 
-        .image-viewer.active {
-            display: flex;
-        }
+            .thumbnails-wrapper {
+                gap: 10px;
+                padding: 0 30px;
+            }
 
-        .viewer-image {
-            max-width: 90%;
-            max-height: 90vh;
-            object-fit: contain;
-        }
-
-        .viewer-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 30px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-        }
-
-        .viewer-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            transition: background-color 0.3s;
-        }
-
-        .viewer-nav:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .viewer-prev {
-            left: 20px;
-        }
-
-        .viewer-next {
-            right: 20px;
+            .thumbnail {
+                flex: 0 0 calc(25% - 8px);
+                height: auto;
+                aspect-ratio: 16/9;
+            }
         }
     </style>
 </head>
@@ -1253,12 +945,12 @@
         <img src="logo/logo.webp" alt="Logo" class="logo">
         <div class="nav-links">
             <div class="menu-links">
-                <a href="#" class="nav-link" data-page="5">圖片集</a>
+                <a href="#" class="nav-link" data-page="4">圖片集</a>
                 <div class="nav-item">
                     <a href="#" class="nav-link">宣傳資料</a>
                     <div class="submenu">
-                        <a href="#" class="submenu-link" data-page="3">宣傳影片</a>
-                        <a href="#" class="submenu-link" data-page="4">宣傳冊子</a>
+                        <a href="#" class="submenu-link" data-page="2">宣傳影片</a>
+                        <a href="#" class="submenu-link" data-page="3">宣傳冊子</a>
                     </div>
                 </div>
             </div>
@@ -1283,12 +975,12 @@
     <!-- 抽屉式菜单 -->
     <div class="drawer-menu">
         <div class="close-btn"></div>
-        <a href="#" class="nav-link" data-page="5">圖片集</a>
+        <a href="#" class="nav-link" data-page="4">圖片集</a>
         <div class="nav-item">
             <a href="#" class="nav-link">宣傳資料</a>
             <div class="submenu">
-                <a href="#" class="submenu-link" data-page="3">宣傳影片</a>
-                <a href="#" class="submenu-link" data-page="4">宣傳冊子</a>
+                <a href="#" class="submenu-link" data-page="2">宣傳影片</a>
+                <a href="#" class="submenu-link" data-page="3">宣傳冊子</a>
             </div>
         </div>
     </div>
@@ -1303,10 +995,6 @@
                 </div>
             </div>
             <img src="main/2.webp" alt="Overlay 1" class="overlay-img">
-        </div>
-        <div class="section new-slide">
-            <img src="img/bg.avif" alt="Background New" class="background-img">
-            <img src="img/bg1.avif" alt="Overlay New" class="centered-img">
         </div>
         <div class="section second-slide">
             <img src="main/3.webp" alt="Background 2" class="background-img">
@@ -1329,27 +1017,24 @@
             <img src="第三张/5.webp" alt="Top Overlay" class="top-overlay-img">
         </div>
         <div class="section gallery-slide">
-            <h2 class="gallery-title">圖片集</h2>
-            <!-- 大图区域 -->
-            <div class="main-image-container">
+            <!-- 缩略图区域 -->
+            <div class="thumbnails-container">
                 <div class="gallery-nav-btn gallery-prev"></div>
-                <img src="" alt="Main Image" class="main-image">
+                <div class="thumbnails-wrapper">
+                    <!-- 缩略图会通过JavaScript动态生成 -->
+                </div>
                 <div class="gallery-nav-btn gallery-next"></div>
             </div>
-        </div>
-        <div class="section showcase-slide">
-            <img src="img/bg.avif" alt="Background" class="background-img">
-            <h2 class="gallery-title">示範單位照片</h2>
+            
+            <!-- 大图区域 -->
             <div class="main-image-container">
-                <div class="gallery-nav-btn gallery-prev"></div>
                 <img src="" alt="Main Image" class="main-image">
-                <div class="gallery-nav-btn gallery-next"></div>
             </div>
         </div>
         <div class="section disclaimer-slide">
             <div class="disclaimer-content">
                 <div class="disclaimer-text">
-                    免責聲明：本網頁並不是發展項目之官方網站網頁。本廣告內的圖片與發展商的樓盤並無任何關係。準買家如欲了解發展項目詳情，請參閱售樓說明書。資料有可能出現售價、現金或其他條件上的改動，或撤回而不經提前通知，並可能受特別條款約束。本宣傳旨在提供更多一手新盤資料及圖片檔案服務只供閱覽；不聲明或保證所提供訊息的準確性和完整性。在撰寫本廣告時，雖已作出合理和謹慎的考慮，對資料的完整和準確性恕不保證、明示或暗示絕對無誤。因使用此資料而直接或間接引致的損失或損毀。本網站恕不負責。本網站內所有內容包括一手新盤資料，僅供參考和借鑒，物業資料，一切以發展商最新公布為準。本頁面所提到房屋面積如無特別標示，均指實用面積。客戶應自行確保資料或，內容的完整性和準確性。所載資料僅供參考，並不構成要約或合約一部份。如有需要，客戶應自行咨詢相關法律及/或專業意見。
+                    本網頁並不是發展項目之官方網站網頁。本廣告內的圖片與發展商的樓盤並無任何關係。準買家如欲了解發展項目詳情，請參閱售樓說明書。資料有可能出現售價、現金或其他條件上的改動，或撤回而不經提前通知，並可能受特別條款約束。本宣傳旨在提供更多一手新盤資料及圖片檔案服務只供閱覽；不聲明或保證所提供訊息的準確性和完整性。在撰寫本廣告時，雖已作出合理和謹慎的考慮，對資料的完整和準確性恕不保證、明示或暗示絕對無誤。因使用此資料而直接或間接引致的損失或損毀。本網站恕不負責。本網站內所有內容包括一手新盤資料，僅供參考和借鑒，物業資料，一切以發展商最新公布為準。本頁面所提到房屋面積如無特別標示，均指實用面積。客戶應自行確保資料或，內容的完整性和準確性。所載資料僅供參考，並不構成要約或合約一部份。如有需要，客戶應自行咨詢相關法律及/或專業意見。
                 </div>
             </div>
         </div>
@@ -1360,176 +1045,70 @@
         <img src="img/wa2.svg" alt="WhatsApp" class="whatsapp-icon">
     </a>
 
-    <!-- 图片查看器 -->
-    <div class="image-viewer">
-        <div class="viewer-close">&times;</div>
-        <div class="viewer-nav viewer-prev">&lt;</div>
-        <img src="" alt="Full size image" class="viewer-image">
-        <div class="viewer-nav viewer-next">&gt;</div>
+    <!-- 模态框 -->
+    <div class="modal">
+        <span class="modal-close">&times;</span>
+        <div class="modal-content">
+            <img src="" alt="Full size image">
+        </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.js"></script>
     <script>
-        // 图片库功能
-        const images = [
-            '第四张/1.jpg',
-            '第四张/2.jpg',
-            '第四张/3.jpg',
-            '第四张/4.jpg',
-            '第四张/5.jpg',
-            '第四张/6.jpg',
-            '第四张/7.jpg',
-            '第四张/8.jpg',
-            '第四张/9.jpg',
-            '第四张/10.jpg',
-            '第四张/12.jpg'
-        ];
-
-        // 示范单位照片
-        const showcaseImages = [
-            '示范单位/1.jpg',
-            '示范单位/2.jpg',
-            '示范单位/3.jpg',
-            '示范单位/4.jpg',
-            '示范单位/5.jpg',
-            '示范单位/6.jpg',
-            '示范单位/7.jpg',
-            '示范单位/8.jpg',
-            '示范单位/9.jpg',
-            '示范单位/10.jpg'
-        ];
-
-        let currentIndex = 0;
-        let showcaseIndex = 0;
-        const mainImage = document.querySelector('.main-image');
-        const showcaseImage = document.querySelector('.showcase-slide .main-image');
-        const mainImageContainer = document.querySelector('.main-image-container');
-        const showcaseContainer = document.querySelector('.showcase-slide .main-image-container');
-        const prevBtn = document.querySelector('.gallery-prev');
-        const nextBtn = document.querySelector('.gallery-next');
-        const showcasePrevBtn = document.querySelector('.showcase-slide .gallery-prev');
-        const showcaseNextBtn = document.querySelector('.showcase-slide .gallery-next');
-
-        // 上一张按钮
-        prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            updateGallery();
-        });
-
-        // 下一张按钮
-        nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % images.length;
-            updateGallery();
-        });
-
-        // 示范单位照片控制
-        showcasePrevBtn.addEventListener('click', () => {
-            showcaseIndex = (showcaseIndex - 1 + showcaseImages.length) % showcaseImages.length;
-            updateShowcase();
-        });
-
-        showcaseNextBtn.addEventListener('click', () => {
-            showcaseIndex = (showcaseIndex + 1) % showcaseImages.length;
-            updateShowcase();
-        });
-
-        // 示范单位照片触摸事件
-        showcaseContainer.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-            e.stopPropagation();
-        }, false);
-
-        showcaseContainer.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-        }, { passive: false });
-
-        showcaseContainer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].clientX;
-            e.stopPropagation();
-            handleShowcaseSwipe();
-        }, false);
-
-        function handleShowcaseSwipe() {
-            const swipeThreshold = 50;
-            const swipeLength = touchEndX - touchStartX;
-            
-            if (Math.abs(swipeLength) > swipeThreshold) {
-                if (swipeLength > 0) {
-                    showcaseIndex = (showcaseIndex - 1 + showcaseImages.length) % showcaseImages.length;
-                } else {
-                    showcaseIndex = (showcaseIndex + 1) % showcaseImages.length;
-                }
-                updateShowcase();
-            }
-        }
-
-        function updateShowcase() {
-            const newImage = new Image();
-            newImage.src = showcaseImages[showcaseIndex];
-            
-            newImage.onload = function() {
-                showcaseImage.style.opacity = '0';
+        new fullpage('#fullpage', {
+            autoScrolling: true,
+            scrollHorizontally: true,
+            navigation: true,
+            navigationPosition: 'right',
+            showActiveTooltip: false,
+            slidesNavigation: true,
+            controlArrows: false,
+            scrollingSpeed: 1000,
+            easingcss3: 'cubic-bezier(0.645, 0.045, 0.355, 1.000)',
+            fitToSection: true,
+            scrollBar: false,
+            mouseWheel: true,
+            wheelSensitivity: 15,
+            keyboardScrolling: true,
+            touchSensitivity: 15,
+            afterLoad: function(origin, destination, direction) {
+                const section = destination.item;
+                const elements = section.querySelectorAll('.circle-container, .overlay-img, .video-container, .top-overlay-img, .download-btn');
                 
-                setTimeout(() => {
-                    showcaseImage.src = showcaseImages[showcaseIndex];
-                    showcaseImage.style.transition = 'opacity 0.2s ease';
-                    showcaseImage.style.opacity = '1';
-                }, 200);
-            };
-        }
-
-        // 预加载所有图片
-        function preloadImages() {
-            images.forEach(image => {
-                const fullImg = new Image();
-                fullImg.src = image;
-            });
-        }
-
-        // 更新图库显示
-        function updateGallery() {
-            // 先加载新图片
-            const newImage = new Image();
-            newImage.src = images[currentIndex];
-            
-            newImage.onload = function() {
-                mainImage.style.opacity = '0';
-                
-                setTimeout(() => {
-                    mainImage.src = images[currentIndex];
-                    mainImage.style.transition = 'opacity 0.2s ease';
-                    mainImage.style.opacity = '1';
-                }, 200);
-            };
-        }
-
-        // 页面加载完成后初始化
-        window.addEventListener('load', () => {
-            preloadImages();
-            // 设置初始图片
-            mainImage.src = images[0];
-            showcaseImage.src = showcaseImages[0];
-            updateGallery();
-            updateShowcase();
-        });
-
-        // 添加平滑滚动功能
-        document.querySelectorAll('.nav-link[data-page], .submenu-link[data-page]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const pageNumber = parseInt(this.getAttribute('data-page'));
-                const section = document.querySelectorAll('.section')[pageNumber - 1];
-                window.scrollTo({
-                    top: section.offsetTop - 65,
-                    behavior: 'smooth'
+                elements.forEach(element => {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translate(-50%, -40%)';
+                    element.style.transition = 'all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000) 0.2s';
+                    
+                    setTimeout(() => {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translate(-50%, -50%)';
+                    }, 200);
                 });
-            });
+            },
+            onLeave: function(origin, destination, direction) {
+                const section = origin.item;
+                const elements = section.querySelectorAll('.circle-container, .overlay-img, .video-container, .top-overlay-img, .download-btn');
+                
+                elements.forEach(element => {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translate(-50%, -60%)';
+                    element.style.transition = 'all 0.6s cubic-bezier(0.645, 0.045, 0.355, 1.000)';
+                });
+            }
         });
 
-        // 菜单切换功能
         document.querySelector('.menu-toggle').addEventListener('click', function() {
             this.classList.toggle('active');
             document.querySelector('.drawer-menu').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.drawer-menu .nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (e.target.classList.contains('nav-link')) {
+                    this.classList.toggle('active');
+                }
+            });
         });
 
         document.querySelector('.close-btn').addEventListener('click', function() {
@@ -1537,82 +1116,219 @@
             document.querySelector('.drawer-menu').classList.remove('active');
         });
 
-        // 图片查看器功能
-        const imageViewer = document.querySelector('.image-viewer');
-        const viewerImage = document.querySelector('.viewer-image');
-        const viewerClose = document.querySelector('.viewer-close');
-        const viewerPrev = document.querySelector('.viewer-prev');
-        const viewerNext = document.querySelector('.viewer-next');
-        let currentImageSet = [];
-        let currentViewerIndex = 0;
+        // 图片预览功能
+        const modal = document.querySelector('.modal');
+        const modalImg = modal.querySelector('img');
+        const modalClose = modal.querySelector('.modal-close');
 
-        // 为两个图片容器添加点击事件
-        mainImage.addEventListener('click', () => {
-            openViewer(images, currentIndex);
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const fullSrc = this.querySelector('img').getAttribute('data-full');
+                modalImg.src = fullSrc;
+                modal.classList.add('active');
+            });
         });
 
-        showcaseImage.addEventListener('click', () => {
-            openViewer(showcaseImages, showcaseIndex);
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
         });
 
-        function openViewer(imageSet, index) {
-            currentImageSet = imageSet;
-            currentViewerIndex = index;
-            viewerImage.src = imageSet[index];
-            imageViewer.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // 关闭查看器
-        viewerClose.addEventListener('click', () => {
-            imageViewer.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        // 上一张
-        viewerPrev.addEventListener('click', () => {
-            currentViewerIndex = (currentViewerIndex - 1 + currentImageSet.length) % currentImageSet.length;
-            viewerImage.src = currentImageSet[currentViewerIndex];
-        });
-
-        // 下一张
-        viewerNext.addEventListener('click', () => {
-            currentViewerIndex = (currentViewerIndex + 1) % currentImageSet.length;
-            viewerImage.src = currentImageSet[currentViewerIndex];
-        });
-
-        // ESC键关闭查看器
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                imageViewer.classList.remove('active');
-                document.body.style.overflow = '';
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
             }
         });
 
-        // 添加触摸滑动支持
-        let viewerTouchStartX = 0;
-        let viewerTouchEndX = 0;
+        // 图片库功能
+        const images = [
+            { thumb: '第四张/11.jpg', full: '第四张/1.jpg' },
+            { thumb: '第四张/22.jpg', full: '第四张/2.jpg' },
+            { thumb: '第四张/33.jpg', full: '第四张/3.jpg' },
+            { thumb: '第四张/44.jpg', full: '第四张/4.jpg' },
+            { thumb: '第四张/55.jpg', full: '第四张/5.jpg' },
+            { thumb: '第四张/66.jpg', full: '第四张/6.jpg' },
+            { thumb: '第四张/77.jpg', full: '第四张/7.jpg' },
+            { thumb: '第四张/88.jpg', full: '第四张/8.jpg' },
+            { thumb: '第四张/99.jpg', full: '第四张/9.jpg' },
+            { thumb: '第四张/110.jpg', full: '第四张/10.jpg' },
+            { thumb: '第四张/120.jpg', full: '第四张/12.jpg' }
+        ];
 
-        imageViewer.addEventListener('touchstart', (e) => {
-            viewerTouchStartX = e.touches[0].clientX;
+        let currentIndex = 0;
+        const mainImage = document.querySelector('.main-image');
+        const mainImageContainer = document.querySelector('.main-image-container');
+        const thumbnailsWrapper = document.querySelector('.thumbnails-wrapper');
+        const prevBtn = document.querySelector('.gallery-prev');
+        const nextBtn = document.querySelector('.gallery-next');
+
+        // 预加载所有图片
+        function preloadImages() {
+            images.forEach(image => {
+                const thumbImg = new Image();
+                const fullImg = new Image();
+                thumbImg.src = image.thumb;
+                fullImg.src = image.full;
+            });
+        }
+
+        function updateGallery() {
+            // 更新大图
+            mainImage.src = images[currentIndex].full;
+            
+            // 添加图片加载事件处理
+            mainImage.onload = function() {
+                this.style.opacity = '1';
+            };
+            mainImage.onerror = function() {
+                console.error('Failed to load image:', this.src);
+                this.src = images[currentIndex].thumb; // 如果大图加载失败，显示缩略图
+            };
+            
+            // 更新缩略图显示
+            const startIndex = Math.floor(currentIndex / 4) * 4;
+            thumbnailsWrapper.innerHTML = images.slice(startIndex, startIndex + 4).map((img, i) => `
+                <div class="thumbnail ${i === currentIndex % 4 ? 'active' : ''}">
+                    <img src="${img.thumb}" alt="Thumbnail ${startIndex + i + 1}" data-index="${startIndex + i}">
+                </div>
+            `).join('');
+        }
+
+        // 确保在页面加载完成后初始化
+        window.addEventListener('load', () => {
+            preloadImages();
+            updateGallery();
+        });
+
+        // 添加事件监听
+        prevBtn.addEventListener('click', () => {
+            // 向右切换动画
+            mainImage.style.transition = 'transform 0.2s ease-in-out';
+            mainImage.style.transform = 'translateX(100%)';
+            
+            setTimeout(() => {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                
+                // 取消过渡动画，立即将新图片放到起始位置
+                mainImage.style.transition = 'none';
+                mainImage.style.transform = 'translateX(-100%)';
+                
+                // 更新图片
+                updateGallery();
+                
+                // 添加过渡动画，将新图片滑入
+                requestAnimationFrame(() => {
+                    mainImage.style.transition = 'transform 0.2s ease-in-out';
+                    mainImage.style.transform = 'translateX(0)';
+                });
+            }, 200);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            // 向左切换动画
+            mainImage.style.transition = 'transform 0.2s ease-in-out';
+            mainImage.style.transform = 'translateX(-100%)';
+            
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % images.length;
+                
+                // 取消过渡动画，立即将新图片放到起始位置
+                mainImage.style.transition = 'none';
+                mainImage.style.transform = 'translateX(100%)';
+                
+                // 更新图片
+                updateGallery();
+                
+                // 添加过渡动画，将新图片滑入
+                requestAnimationFrame(() => {
+                    mainImage.style.transition = 'transform 0.2s ease-in-out';
+                    mainImage.style.transform = 'translateX(0)';
+                });
+            }, 200);
+        });
+
+        // 点击缩略图切换
+        thumbnailsWrapper.addEventListener('click', (e) => {
+            const thumb = e.target.closest('.thumbnail');
+            if (thumb) {
+                const index = parseInt(thumb.querySelector('img').dataset.index);
+                if (!isNaN(index)) {
+                    currentIndex = index;
+                    updateGallery();
+                }
+            }
+        });
+
+        // 添加导航跳转功能
+        document.querySelectorAll('.nav-link[data-page], .submenu-link[data-page]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageNumber = parseInt(this.getAttribute('data-page'));
+                fullpage_api.moveTo(pageNumber);
+            });
+        });
+
+        // 图片库功能
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let currentTranslate = 0;
+        
+        // 添加触摸事件监听
+        mainImageContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
         }, false);
-
-        imageViewer.addEventListener('touchend', (e) => {
-            viewerTouchEndX = e.changedTouches[0].clientX;
-            handleViewerSwipe();
+        
+        mainImageContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].clientX;
+            handleSwipe();
         }, false);
-
-        function handleViewerSwipe() {
+        
+        function handleSwipe() {
             const swipeThreshold = 50;
-            const swipeLength = viewerTouchEndX - viewerTouchStartX;
+            const swipeLength = touchEndX - touchStartX;
             
             if (Math.abs(swipeLength) > swipeThreshold) {
+                // 添加过渡动画
+                mainImage.style.transition = 'transform 0.3s ease-out';
+                
                 if (swipeLength > 0) {
-                    currentViewerIndex = (currentViewerIndex - 1 + currentImageSet.length) % currentImageSet.length;
+                    // 向右滑动，先让当前图片滑出
+                    mainImage.style.transform = 'translateX(100%)';
+                    // 向右滑动，显示上一张
+                    // currentIndex = (currentIndex - 1 + images.length) % images.length;
+                    // updateGallery();
                 } else {
-                    currentViewerIndex = (currentViewerIndex + 1) % currentImageSet.length;
+                    // 向左滑动，先让当前图片滑出
+                    mainImage.style.transform = 'translateX(-100%)';
+                    // 向左滑动，显示下一张
+                    // currentIndex = (currentIndex + 1) % images.length;
+                    // updateGallery();
                 }
-                viewerImage.src = currentImageSet[currentViewerIndex];
+                
+                // 等待动画结束后更新图片
+                setTimeout(() => {
+                    if (swipeLength > 0) {
+                        currentIndex = (currentIndex - 1 + images.length) % images.length;
+                    } else {
+                        currentIndex = (currentIndex + 1) % images.length;
+                    }
+                    
+                    // 取消过渡动画，立即将新图片放到起始位置
+                    mainImage.style.transition = 'none';
+                    mainImage.style.transform = swipeLength > 0 ? 'translateX(-100%)' : 'translateX(100%)';
+                    
+                    // 更新图片
+                    updateGallery();
+                    
+                    // 添加过渡动画，将新图片滑入
+                    requestAnimationFrame(() => {
+                        mainImage.style.transition = 'transform 0.3s ease-out';
+                        mainImage.style.transform = 'translateX(0)';
+                    });
+                }, 300);
+            } else {
+                // 回弹动画
+                mainImage.style.transition = 'transform 0.3s ease-out';
+                mainImage.style.transform = '';
             }
         }
     </script>
