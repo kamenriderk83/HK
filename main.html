@@ -198,24 +198,34 @@
             max-width: none;
             transform: translateX(-50%);
             object-fit: contain;
-            z-index: 2;
+            z-index: 1;
             opacity: 1;
         }
 
         .section.second-slide .video-container {
             position: relative;
-            z-index: 3;
-            width: 800px;
-            max-width: 1000px;
+            width: 100%;
+            max-width: 800px;
             margin: 0 auto;
-            aspect-ratio: 16 / 9;
+            padding: 0 15px;
+            z-index: 10;
+        }
+
+        .section.second-slide .video-container::before {
+            content: "";
+            display: block;
+            padding-top: 56.25%; /* 16:9 比例 */
         }
 
         .youtube-video {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
         }
 
         /* 手机端样式 */
@@ -630,82 +640,36 @@
         /* 移动端样式 */
         @media screen and (max-width: 768px) {
             .navbar {
-                padding: 10px 20px;
-                grid-template-columns: auto 1fr auto;  /* 修改为三列布局 */
-                align-items: center;  /* 改居中 */
-                gap: 10px;  /* 添加间距 */
+                grid-template-columns: 120px 1fr auto; /* 减小logo区域 */
+                padding: 10px 15px;
+                gap: 5px;
             }
 
             .logo {
-                height: 30px;  /* 缩小logo */
+                height: 25px; /* 缩小logo */
             }
 
-            .online-status {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-
-            .status-top {
-                display: none;  /* 隐藏预约文字 */
-            }
-
-            .status-bottom {
-                margin: 0;  /* 移除margin */
-            }
-
-            .status-text-main {
-                font-size: 12px;  /* 缩小文字 */
-            }
-
-            .status-indicator {
-                width: 8px;
-                height: 8px;
-                margin-right: 4px;
-            }
-
-            .whatsapp-status-icon {
-                width: 20px;
-                height: 20px;
-            }
-
-            .menu-toggle {
-                display: none;  /* 隐藏折叠按钮 */
-            }
-
-            .nav-links {
-                display: flex;  /* 显示导航链接 */
-                justify-content: center;
+            .nav-link {
+                font-size: 12px; /* 减小导航文字大小 */
+                padding: 4px 8px;
             }
 
             .menu-links {
-                gap: 30px;  /* 减小间距 */
+                gap: 15px; /* 减小间距 */
             }
 
-            /* 在线状态样式调整 */
             .online-status {
-                flex-direction: row;  /* 改为单行显示 */
-                gap: 8px;
-                padding: 5px 10px;
-                align-items: center;
-            }
-
-            .status-bottom {
-                display: none;  /* 隐藏"線上"状态 */
+                padding: 4px 8px;
+                gap: 6px;
             }
 
             .whatsapp-status-icon {
-                width: 18px;  /* 稍微调小图标 */
-                height: 18px;
+                width: 16px;
+                height: 16px;
             }
 
             .status-text-sub {
-                font-size: 13px;  /* 调整字体大小 */
-            }
-
-            /* 移除抽屉菜单相关样式 */
-            .drawer-menu {
-                display: none;
+                font-size: 12px;
             }
         }
 
@@ -717,7 +681,7 @@
 
             /* 第二张幻灯片的视频容器 */
             .video-container {
-                width: 90%;  /* 从300px改为90% */
+                width: 90%;  /* ��300px改为90% */
                 height: 50vh;  /* 使用视口高度 */
             }
 
@@ -746,7 +710,7 @@
         @media screen and (max-width: 768px) and (orientation: landscape) {
             .video-container {
                 width: 80%;
-                height: 45vw;  /* 保持16:9比例 (80% * 9/16) */
+                height: 45vw;  /* 保持16:9的比例 (80% * 9/16) */
                 max-height: 70vh;
             }
         }
@@ -758,7 +722,6 @@
             gap: 15px;
             padding: 8px 15px;
             border-radius: 4px;
-            background-color: rgba(255, 255, 255, 0.2);
             align-items: center;
         }
 
@@ -769,10 +732,7 @@
         }
 
         .status-bottom {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin-right: 0;
+            display: none;
         }
 
         .whatsapp-status-icon {
@@ -988,14 +948,14 @@
             margin: 0 auto;
         }
 
-        /* 移动端适�� */
+        /* 移动端适配 */
         @media screen and (max-width: 768px) {
             .section.new-slide .centered-img {
                 width: 95%;
             }
         }
 
-        /* 缩略图区域样式 */
+        /* ���略图区域样式 */
         .thumbnails-container {
             width: 800px;
             position: relative;
@@ -1271,6 +1231,63 @@
         .viewer-next {
             right: 20px;
         }
+
+        /* 修改在线状态的移动端样式 */
+        @media screen and (max-width: 768px) {
+            .navbar {
+                grid-template-columns: 150px 1fr auto; /* 调整列宽 */
+                padding: 10px 15px; /* 减小内边距 */
+            }
+
+            .logo {
+                height: 30px;
+            }
+
+            .online-status {
+                padding: 5px 10px;
+                gap: 8px;
+                background: none;
+            }
+
+            .status-top {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                white-space: nowrap;
+            }
+
+            .whatsapp-status-icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            .status-text-sub {
+                display: block; /* 确保文字显示 */
+                font-size: 13px;
+                white-space: nowrap;
+            }
+
+            /* 移除之前隐��文字的样式 */
+            .status-text-sub {
+                display: inline-block !important;
+            }
+        }
+
+        /* 超小屏幕的特殊处理 */
+        @media screen and (max-width: 360px) {
+            .navbar {
+                grid-template-columns: auto 1fr auto;
+                gap: 5px;
+            }
+
+            .logo {
+                height: 25px;
+            }
+
+            .status-text-sub {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1292,11 +1309,7 @@
         <div class="online-status">
             <div class="status-top">
                 <img src="img/wa.webp" alt="WhatsApp" class="whatsapp-status-icon">
-                <a href="https://wa.me/447778017841" target="_blank" class="status-text-sub">預約先看房</a>
-            </div>
-            <div class="status-bottom">
-                <div class="status-indicator"></div>
-                <span class="status-text-main">線上</span>
+                <a href="https://wa.me/447778017841" target="_blank" class="status-text-sub">預約優先看房</a>
             </div>
         </div>
         <div class="menu-toggle">
@@ -1375,7 +1388,7 @@
         <div class="section disclaimer-slide">
             <div class="disclaimer-content">
                 <div class="disclaimer-text">
-                    免責聲明：本網頁並不是發展項目之官方網站網頁。本廣告內的圖片與發展商的樓盤並無任何關係。準買家如欲了解發展項目詳情，請參閱售樓說明書。資料有可能出現售價、現金或其他條件上的改動，或撤回而不經提前通知，並可能受特別條款約束。本宣傳旨在提供更多一手新盤資料及圖片檔案服務只供閱覽；不聲明或保證所提供訊息的準確性和完整性。在撰寫本廣告時，雖已作出合理和謹慎的考慮，對資料的完整和準確性恕不保證、明示或暗示絕對無誤。因使用此資料而直接或間接引致的損失或損毀。本網站恕不負責。本網站內所有內容包括一手新盤資料，僅供參考和借用，物業資料，一切以發展商最新公布為準。本頁面所提到房屋面積如無特別標示，均指實用面積。客戶應自行確保資料或，內容的完整性和準確性。所載資料僅供參考，並不構成要約或合約一部份。如有需要，客戶應自行咨詢相關法律及/或專業意見。
+                    免責聲明：網頁並不是發展項目之官方網站網頁。本廣告內的圖片與發展商的樓盤並無任何關係。準買��如欲了解發展項目詳情，請參閱售樓說明書。資料有可能出現售價、現金或其他條件上的改動，或撤回而不經提前通知，並可能受特別條款約束。本宣傳旨在提供更多一手新盤資料及圖片檔案服務只供閱覽；不聲明或保證所提供訊息的準確性和完整性。在撰寫本廣告時，雖已作出合理和謹慎的考慮，對資料的完整和確性恕不保證、明示或暗示絕對無誤。因使用此資料而直接或間接引致的損失或損毀。本網站恕不負責。本網站內所有內容包括一手新盤資料，僅供參考和借用，物業資料，一切以發展商最新公布為準。本頁面所提到房屋面積如無特別標示，均指實用面積。客戶應自行確保資料或，內容的完整性和準確性。所載資料僅供參考，並不構成要約或合約一部份。如有需要，客戶應自行咨詢相關法律及/或專業意見。
                 </div>
             </div>
         </div>
@@ -1590,7 +1603,7 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // 关闭查看器
+        // 关闭��看器
         viewerClose.addEventListener('click', () => {
             imageViewer.classList.remove('active');
             document.body.style.overflow = '';
